@@ -8,6 +8,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.sindarin27.farsightedmobs.mixin.MobMixin;
+import net.sindarin27.farsightedmobs.mixin.NearestAttackableTargetGoalMixin;
 
 public class AttributeUtility {
     // Change the base value of the given attribute on the given entity to the given value
@@ -20,7 +22,7 @@ public class AttributeUtility {
         }
         attributeInstance.setBaseValue(value);
     }
-    
+
     public static void AddAttributeModifier(Mob mob, Holder<Attribute> attribute, AttributeModifier modifier) {
         AttributeInstance attributeInstance = mob.getAttribute(attribute);
         // Safety goes first
@@ -34,10 +36,10 @@ public class AttributeUtility {
     // Workaround for MC-145656 (https://bugs.mojang.com/browse/MC-145656)
     // Should no longer be needed from 1.21.1 onwards, but does no harm either
     public static void FixFollowRange(Mob mob) {
-        mob.targetSelector.getAvailableGoals().forEach(wrappedGoal -> {
+        ((MobMixin) mob).getTargetSelector().getAvailableGoals().forEach(wrappedGoal -> {
             Goal goal = wrappedGoal.getGoal();
             if (goal instanceof NearestAttackableTargetGoal<?> natGoal) {
-                natGoal.targetConditions = natGoal.targetConditions.range(mob.getAttributeValue(Attributes.FOLLOW_RANGE));
+                ((NearestAttackableTargetGoalMixin) natGoal).getTargetConditions().range(mob.getAttributeValue(Attributes.FOLLOW_RANGE));
             }
         });
     }

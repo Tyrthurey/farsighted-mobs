@@ -6,6 +6,8 @@
   "client": [
   ],
   "mixins": [
+    "MobMixin",
+    "NearestAttackableTargetGoalMixin"
   ],
   "injectors": {
     "defaultRequire": 1
