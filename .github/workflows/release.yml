@@ -30,7 +30,7 @@ jobs:
           # modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           # curseforge-id: <id>
           # curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          files: fabric/build/libs/farsightedmobs-fabric-*.jar
+          files: fabric/build/libs/farsightedmobs-fabric-!(*-@(dev-shadow|sources)).jar
           # loaders: fabric
           # modrinth-name: "[Fabric] ${{ github.event.release.name || github.event.release.tag_name }}"
           # modrinth-version: "${{ github.event.release.tag_name }}-fabric"
@@ -45,7 +45,7 @@ jobs:
           # modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           # curseforge-id: <id>
           # curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          files: neoforge/build/libs/farsightedmobs-neoforge-*.jar
+          files: neoforge/build/libs/farsightedmobs-neoforge-!(*-@(dev-shadow|sources)).jar
           # loaders: neoforge
           # modrinth-name: "[NeoForge] ${{ github.event.release.name || github.event.release.tag_name }}"
           # modrinth-version: "${{ github.event.release.tag_name }}-neoforge"
