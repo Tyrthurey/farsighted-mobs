@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: setup jdk
@@ -20,11 +22,32 @@ jobs:
       - name: build with gradle
         run: ./gradlew build
 
-      - name: publish to github
-        uses: Kira-NT/mc-publish@v3
+      - name: publish fabric
+        uses: Kir-Antipov/mc-publish@v3.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          # Finds the jars in the build folders for both fabric and neoforge
-          files: |
-            fabric/build/libs/farsightedmobs-fabric-*.jar
-            neoforge/build/libs/farsightedmobs-neoforge-*.jar
+          # modrinth-id: <id>
+          # modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          # curseforge-id: <id>
+          # curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          files: fabric/build/libs/farsightedmobs-fabric-*.jar
+          # loaders: fabric
+          # modrinth-name: "[Fabric] ${{ github.event.release.name || github.event.release.tag_name }}"
+          # modrinth-version: "${{ github.event.release.tag_name }}-fabric"
+          # curseforge-name: "[Fabric] ${{ github.event.release.name || github.event.release.tag_name }}"
+          # curseforge-version: "${{ github.event.release.tag_name }}-fabric"
+
+      - name: publish neoforge
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # modrinth-id: <id>
+          # modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          # curseforge-id: <id>
+          # curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          files: neoforge/build/libs/farsightedmobs-neoforge-*.jar
+          # loaders: neoforge
+          # modrinth-name: "[NeoForge] ${{ github.event.release.name || github.event.release.tag_name }}"
+          # modrinth-version: "${{ github.event.release.tag_name }}-neoforge"
+          # curseforge-name: "[NeoForge] ${{ github.event.release.name || github.event.release.tag_name }}"
+          # curseforge-version: "${{ github.event.release.tag_name }}-neoforge"
